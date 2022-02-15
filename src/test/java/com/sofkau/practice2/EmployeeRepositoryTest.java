@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Profile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-//replace => cuando trabajamos con mysql
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+//dependiendo del perfil(dev-prod)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class EmployeeRepositoryTest {
     private final IEmployeeRepository iEmployeeRepository;
 
