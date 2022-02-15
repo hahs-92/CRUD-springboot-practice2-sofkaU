@@ -1,6 +1,8 @@
 package com.sofkau.practice2.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -19,6 +21,19 @@ public class EmployeeModel {
     @Column(length = 10, nullable = false, unique = true)
     private String employeeId;
 
+    //relaciones
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_role") // crea la llave foranea(id_role) en la tabla Employees
+    private RoleModel role;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "employee_project", //tabla transitiva a crear
+            joinColumns = { @JoinColumn(name = "employee_id") },
+            inverseJoinColumns = { @JoinColumn(name = "project_id")}
+    )
+    private List<ProjectModel> projects = new ArrayList<>();
+
+
     public EmployeeModel() {
     }
 
@@ -26,6 +41,13 @@ public class EmployeeModel {
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeId = employeeId;
+    }
+
+    public EmployeeModel(String firstName, String lastName, String employeeId, RoleModel role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.employeeId = employeeId;
+        this.role = role;
     }
 
     public Long getId() {
@@ -58,6 +80,22 @@ public class EmployeeModel {
 
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public RoleModel getRole() {
+        return role;
+    }
+
+    public void setRole(RoleModel role) {
+        this.role = role;
+    }
+
+    public List<ProjectModel> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<ProjectModel> projects) {
+        this.projects = projects;
     }
 
     @Override
