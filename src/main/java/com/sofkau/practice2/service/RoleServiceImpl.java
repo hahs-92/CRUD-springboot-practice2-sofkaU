@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Validated
 public class RoleServiceImpl implements IRoleService{
@@ -28,5 +31,14 @@ public class RoleServiceImpl implements IRoleService{
         RoleModel roleEntity = modelMapper.map(role, RoleModel.class);
         roleEntity = iRoleRepository.save(roleEntity);
         return  modelMapper.map(roleEntity, RoleDTO.class);
+    }
+
+    @Override
+    public List<RoleDTO> getAll() {
+        List<RoleModel> listRolesEntity = iRoleRepository.findAll();
+
+        return listRolesEntity.stream().map(role -> modelMapper.map(role, RoleDTO.class))
+                .collect(Collectors.toList());
+
     }
 }

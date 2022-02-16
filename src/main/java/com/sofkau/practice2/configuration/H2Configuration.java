@@ -23,7 +23,9 @@ public class H2Configuration {
 
     @Value("${password}")
     private String password;
-    @Bean
+
+
+  /*  @Bean
     public DataSource dataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName(driver);
@@ -31,5 +33,5 @@ public class H2Configuration {
         dataSourceBuilder.username(userName);
         dataSourceBuilder.password(password);
         return dataSourceBuilder.build();
-    }
+    }*/
 }

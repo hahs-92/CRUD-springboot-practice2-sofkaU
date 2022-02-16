@@ -1,15 +1,20 @@
 package com.sofkau.practice2.service;
 
 import com.sofkau.practice2.dto.EmployeeDTO;
+import com.sofkau.practice2.dto.ProjectDTO;
 import com.sofkau.practice2.model.EmployeeModel;
 import com.sofkau.practice2.repository.IEmployeeRepository;
 import com.sofkau.practice2.repository.IProjectRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
+@Validated
 public class EmployeeServiceImpl implements IEmployeeService{
     private final IEmployeeRepository iEmployeeRepository;
     private final IProjectRepository iProjectRepository;
@@ -32,11 +37,14 @@ public class EmployeeServiceImpl implements IEmployeeService{
         EmployeeModel employeeEntity = mapper.map(employee, EmployeeModel.class);
 
         List<Long> idsProjects = new ArrayList<>();
-        employee.getProjects()
+        for(ProjectDTO project:employee.getProjects()){
+            idsProjects.add(project.getId());
+        }
+        /*employee.getProjects()
                 .forEach(project -> {
                     idsProjects.add(project.getId());
-                });
-        employeeEntity.setProjects(iProjectRepository.findByProjects(idsProjects));
+                });*/
+        //employeeEntity.setProjects(iProjectRepository.findByProjects(idsProjects));
 
         employeeEntity = iEmployeeRepository.save(employeeEntity);
         return mapper.map(employeeEntity, EmployeeDTO.class);

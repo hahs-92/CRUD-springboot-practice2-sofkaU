@@ -17,9 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DataJpaTest
 //dependiendo del perfil(dev-prod)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+
 //@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class EmployeeRepositoryTest {
-    private final IEmployeeRepository iEmployeeRepository;
+   /* private final IEmployeeRepository iEmployeeRepository;
     private final IRoleRepository iRoleRepository;
     private final IProjectRepository iProjectRepository;
 
@@ -69,5 +70,5 @@ public class EmployeeRepositoryTest {
         assertEquals("Jess", emp123.getFirstName());
         assertEquals(2, iEmployeeRepository.findAll().size());
         assertEquals(admin, emp123.getRole());
-    }
+    }*/
 }
