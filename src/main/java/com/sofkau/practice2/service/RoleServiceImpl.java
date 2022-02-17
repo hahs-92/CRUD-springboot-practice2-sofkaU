@@ -37,7 +37,8 @@ public class RoleServiceImpl implements IRoleService{
     public List<RoleDTO> getAll() {
         List<RoleModel> listRolesEntity = iRoleRepository.findAll();
 
-        return listRolesEntity.stream().map(role -> modelMapper.map(role, RoleDTO.class))
+        return listRolesEntity.stream()
+                .map(role -> modelMapper.map(role, RoleDTO.class))
                 .collect(Collectors.toList());
 
     }

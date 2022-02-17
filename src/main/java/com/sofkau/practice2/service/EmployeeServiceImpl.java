@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Validated
@@ -71,10 +72,9 @@ public class EmployeeServiceImpl implements IEmployeeService{
     @Override
     public EmployeeDTO update(EmployeeDTO employee, Long id) {
         EmployeeModel employeeEntity = iEmployeeRepository.findById(id).get();
+
         employeeEntity = mapper.map(employee, EmployeeModel.class);
-
         employeeEntity = iEmployeeRepository.save(employeeEntity);
-
         return mapper.map(employeeEntity,EmployeeDTO.class);
     }
 

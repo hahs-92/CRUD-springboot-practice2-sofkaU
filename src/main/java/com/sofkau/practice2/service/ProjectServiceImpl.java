@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -32,8 +33,10 @@ public class ProjectServiceImpl implements IProjectService {
 
     @Override
     public List<ProjectDTO> getAll() {
-        List<ProjectModel> listProjectModel = iProjectRepository.findAll();
-        return List.of(modelMapper.map(listProjectModel,ProjectDTO.class ));
+        List<ProjectModel> listProjectEntity = iProjectRepository.findAll();
+        return listProjectEntity.stream()
+                .map( project -> modelMapper.map(project, ProjectDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -44,10 +47,11 @@ public class ProjectServiceImpl implements IProjectService {
 
     @Override
     public ProjectDTO update(ProjectDTO project, Long id) {
-        ProjectModel projectEntity = iProjectRepository.findById(id).get();
-        projectEntity.setName(project.getName());
-
-        return  modelMapper.map(projectEntity, ProjectDTO.class);
+        return iProjectRepository.findById(id)
+                .map(user -> {
+                    user.setName(project.getName());
+                    return modelMapper.map(iProjectRepository.save(user), ProjectDTO.class);
+                }).orElse(null);
     }
 
     @Override
