@@ -19,6 +19,11 @@ public class RoleModel {
         this.name = name;
     }
 
+    public RoleModel(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

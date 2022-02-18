@@ -1,7 +1,6 @@
 package com.sofkau.practice2.service;
 
 import com.sofkau.practice2.dto.EmployeeDTO;
-import com.sofkau.practice2.dto.ProjectDTO;
 import com.sofkau.practice2.model.EmployeeModel;
 import com.sofkau.practice2.repository.IEmployeeRepository;
 import com.sofkau.practice2.repository.IProjectRepository;
@@ -10,25 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 @Service
 @Validated
 public class EmployeeServiceImpl implements IEmployeeService{
     private final IEmployeeRepository iEmployeeRepository;
-    private final IProjectRepository iProjectRepository;
     private final ModelMapper mapper;
 
     @Autowired
     public EmployeeServiceImpl(
             IEmployeeRepository iEmployeeRepository,
-            IProjectRepository iProjectRepository,
             ModelMapper mapper
     ) {
         this.iEmployeeRepository = iEmployeeRepository;
-        this.iProjectRepository = iProjectRepository;
         this.mapper = mapper;
     }
 
@@ -37,14 +32,11 @@ public class EmployeeServiceImpl implements IEmployeeService{
     public EmployeeDTO create(EmployeeDTO employee) {
         EmployeeModel employeeEntity = mapper.map(employee, EmployeeModel.class);
 
-        List<Long> idsProjects = new ArrayList<>();
+       /* List<Long> idsProjects = new ArrayList<>();
         for(ProjectDTO project:employee.getProjects()){
             idsProjects.add(project.getId());
-        }
-        /*employee.getProjects()
-                .forEach(project -> {
-                    idsProjects.add(project.getId());
-                });*/
+        }*/
+
         //employeeEntity.setProjects(iProjectRepository.findByProjects(idsProjects));
 
         employeeEntity = iEmployeeRepository.save(employeeEntity);
@@ -63,19 +55,23 @@ public class EmployeeServiceImpl implements IEmployeeService{
         return mapper.map(employeeEntity, EmployeeDTO.class);
     }
 
-    @Override
+   /* @Override
     public EmployeeDTO getByEmployeeId(String employeeId) {
         EmployeeModel employeeEntity = iEmployeeRepository.findByEmployeeId(employeeId).get();
         return mapper.map(employeeEntity, EmployeeDTO.class);
-    }
+    }*/
 
     @Override
     public EmployeeDTO update(EmployeeDTO employee, Long id) {
-        EmployeeModel employeeEntity = iEmployeeRepository.findById(id).get();
+        return iEmployeeRepository.findById(id)
+                .map(empl -> {
+                    empl.setFirstName(employee.getFirstName());
+                    empl.setLastName(employee.getLastName());
+                    //empl.setRole(employee.getRole());
+                    //empl.setProjects(employee.setProjects());
 
-        employeeEntity = mapper.map(employee, EmployeeModel.class);
-        employeeEntity = iEmployeeRepository.save(employeeEntity);
-        return mapper.map(employeeEntity,EmployeeDTO.class);
+                    return mapper.map(iEmployeeRepository.save(empl),EmployeeDTO.class);
+                }).orElse(null);
     }
 
     @Override

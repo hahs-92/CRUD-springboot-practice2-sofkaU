@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class EmployeeDTO {
     private Long id;
 
@@ -18,11 +19,6 @@ public class EmployeeDTO {
     @Size(max = 25)
     private String lastName;
 
-    @NotBlank
-    @Size(max = 10)
-    private String employeeId;
-
-    @NotNull
     private RoleDTO role;
 
     private List<ProjectDTO> projects = new ArrayList<>();
@@ -31,21 +27,21 @@ public class EmployeeDTO {
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(String firstName, String lastName, String employeeId, RoleDTO role) {
+
+    public EmployeeDTO(String firstName, String lastName, RoleDTO role) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.employeeId = employeeId;
         this.role = role;
     }
 
-    public EmployeeDTO(Long id, String firstName, String lastName, String employeeId, RoleDTO role, List<ProjectDTO> projects) {
+    public EmployeeDTO(Long id, String firstName, String lastName, RoleDTO role, List<ProjectDTO> projects) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.employeeId = employeeId;
         this.role = role;
         this.projects = projects;
     }
+
 
     public Long getId() {
         return id;
@@ -69,14 +65,6 @@ public class EmployeeDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
     }
 
     public RoleDTO getRole() {

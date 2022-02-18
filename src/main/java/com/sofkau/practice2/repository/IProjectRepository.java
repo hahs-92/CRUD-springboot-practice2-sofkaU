@@ -12,6 +12,6 @@ import java.util.List;
 public interface IProjectRepository extends JpaRepository<ProjectModel, Long> {
     ProjectModel findByName(String name);
 
-  /*  @Query("SELECT p FROM Projects p WHERE p.id IN :ids")
+    /*@Query("SELECT p FROM Projects p WHERE p.id IN :ids")
     List<ProjectModel> findByProjects(@Param("ids") List<Long> ids);*/
 }

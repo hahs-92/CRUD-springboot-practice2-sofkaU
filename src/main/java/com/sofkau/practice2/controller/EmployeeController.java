@@ -1,50 +1,47 @@
 package com.sofkau.practice2.controller;
 
-import com.sofkau.practice2.dto.ProjectDTO;
-import com.sofkau.practice2.service.IProjectService;
+
+import com.sofkau.practice2.dto.EmployeeDTO;
+import com.sofkau.practice2.service.IEmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// TODO: 16/02/22 Cambiar el service 
+
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
-    private final IProjectService iProjectService;
+   private final IEmployeeService iEmployeeService;
 
-    public EmployeeController(IProjectService iProjectService) {
-        this.iProjectService = iProjectService;
+    public EmployeeController(IEmployeeService iEmployeeService) {
+        this.iEmployeeService = iEmployeeService;
     }
 
     @PostMapping
-    public ResponseEntity<ProjectDTO> create(@RequestBody ProjectDTO project) {
+    public ResponseEntity<EmployeeDTO> create(@RequestBody EmployeeDTO employee) {
         try {
-            return new ResponseEntity<>(iProjectService.create(project), HttpStatus.CREATED);
+            return new ResponseEntity<>(iEmployeeService.create(employee), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping
-    public ResponseEntity<List<ProjectDTO>> getAll() {
+    public ResponseEntity<List<EmployeeDTO>> getAll() {
         try {
-            return new ResponseEntity<>(iProjectService.getAll(),HttpStatus.OK);
+            return new ResponseEntity<>(iEmployeeService.getAll(),HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjectDTO> getById(@PathVariable Long id) {
+    public ResponseEntity<EmployeeDTO> getById(@PathVariable Long id) {
         try {
-            ProjectDTO project = iProjectService.getById(id);
-
-            if(project.getId() == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+            EmployeeDTO project = iEmployeeService.getById(id);
 
             return new ResponseEntity<>(project, HttpStatus.OK);
         } catch (Exception e) {
@@ -53,11 +50,9 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProjectDTO> update(@RequestBody ProjectDTO project, @PathVariable Long id) {
+    public ResponseEntity<EmployeeDTO> update(@RequestBody EmployeeDTO project, @PathVariable Long id) {
         try {
-            ProjectDTO projectUpdate = iProjectService.update(project, id);
-
-            if(projectUpdate.getId() == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            EmployeeDTO projectUpdate = iEmployeeService.update(project, id);
             return new ResponseEntity<>(projectUpdate, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -67,7 +62,7 @@ public class EmployeeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable Long id) {
         try {
-            iProjectService.delete(id);
+            iEmployeeService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

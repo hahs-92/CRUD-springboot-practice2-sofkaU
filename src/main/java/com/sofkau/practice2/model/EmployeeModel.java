@@ -18,8 +18,6 @@ public class EmployeeModel {
     @Column(length = 25, nullable = false)
     private String lastName;
 
-    @Column(length = 10, nullable = false, unique = true)
-    private String employeeId;
 
     //relaciones
     @ManyToOne(optional = false)
@@ -37,16 +35,14 @@ public class EmployeeModel {
     public EmployeeModel() {
     }
 
-    public EmployeeModel(String firstName, String lastName, String employeeId) {
+    public EmployeeModel(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.employeeId = employeeId;
     }
 
-    public EmployeeModel(String firstName, String lastName, String employeeId, RoleModel role) {
+    public EmployeeModel(String firstName, String lastName, RoleModel role) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.employeeId = employeeId;
         this.role = role;
     }
 
@@ -74,14 +70,6 @@ public class EmployeeModel {
         this.lastName = lastName;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-
     public RoleModel getRole() {
         return role;
     }
@@ -104,7 +92,6 @@ public class EmployeeModel {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", employeeId='" + employeeId + '\'' +
                 '}';
     }
 }
