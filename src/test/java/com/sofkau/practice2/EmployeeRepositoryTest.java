@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class EmployeeRepositoryTest {
-   /* private final IEmployeeRepository iEmployeeRepository;
+    private final IEmployeeRepository iEmployeeRepository;
     private final IRoleRepository iRoleRepository;
     private final IProjectRepository iProjectRepository;
 
@@ -51,8 +51,8 @@ public class EmployeeRepositoryTest {
         project2 = iProjectRepository.save(project2);
         project3 = iProjectRepository.save(project3);
 
-        EmployeeModel jest = new EmployeeModel("Jess", "Jonson", "emp123", admin);
-        EmployeeModel jinx  = new EmployeeModel("Jinx", "Lol", "emp666", dev);
+        EmployeeModel jest = new EmployeeModel("Jess", "Jonson", admin);
+        EmployeeModel jinx  = new EmployeeModel("Jinx", "Lol", dev);
 
         jest.getProjects().add(project1);
         jest.getProjects().add(project2);
@@ -65,10 +65,10 @@ public class EmployeeRepositoryTest {
 
         iEmployeeRepository.flush();
 
-        EmployeeModel emp123 = iEmployeeRepository.findByEmployeeId("emp123").get();
+        //EmployeeModel emp123 = iEmployeeRepository.findByEmployeeId("emp123").get();
 
-        assertEquals("Jess", emp123.getFirstName());
+        //assertEquals("Jess", emp123.getFirstName());
         assertEquals(2, iEmployeeRepository.findAll().size());
-        assertEquals(admin, emp123.getRole());
-    }*/
+        //assertEquals(admin, emp123.getRole());
+    }
 }

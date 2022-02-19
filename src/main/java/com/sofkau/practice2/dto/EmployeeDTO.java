@@ -19,6 +19,7 @@ public class EmployeeDTO {
     @Size(max = 25)
     private String lastName;
 
+    @NotNull
     private RoleDTO role;
 
     private List<ProjectDTO> projects = new ArrayList<>();
@@ -27,6 +28,10 @@ public class EmployeeDTO {
     public EmployeeDTO() {
     }
 
+    public EmployeeDTO(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public EmployeeDTO(String firstName, String lastName, RoleDTO role) {
         this.firstName = firstName;
